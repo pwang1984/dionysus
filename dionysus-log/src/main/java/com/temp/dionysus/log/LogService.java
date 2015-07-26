@@ -36,13 +36,12 @@ public class LogService {
 
 	}
 
-	@AfterThrowing(pointcut = "allFunctions() && !cflowbelow(allFunctions()) && !within(LogService)", throwing = "throwable")
-	public void
-			logRunTimeException(JoinPoint jp, Throwable throwable) {
+	@AfterThrowing(pointcut = "allFunctions() && cflowbelow(allFunctions()) && !within(LogService)", throwing = "throwable")
+	public void logRunTimeException(JoinPoint jp, Throwable throwable) {
 		if (throwable instanceof Error) {
-			logger.fatal("Runtime Exception Detected." + jp.toString(), throwable);
+			logger.fatal("Error Detected. " + jp.toString(), throwable);
 		} else {
-			logger.error("Runtime Exception Detected." + jp.toString(), throwable);
+			logger.error("Exception Detected. " + jp.toString(), throwable);
 		}
 		throwable.printStackTrace();
 	}

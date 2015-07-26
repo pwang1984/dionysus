@@ -7,7 +7,17 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>dionysus-log</module>
+		<module>dionysus-commons</module>
+		<module>dionysus-customer</module>
+		<module>dionysus-customer-hibernate-dao</module>
+		<module>dionysus-portal</module>
 	</modules>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
 	<dependencies>
 		<dependency>

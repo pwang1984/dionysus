@@ -5,31 +5,30 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Threshold" value="DEBUG" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p - %m%n" />
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} (%-5p) [%15.15t] - %m%n" />
 		</layout>
 	</appender>
 
 	<appender name="dionysusInfoFile" class="org.apache.log4j.rolling.RollingFileAppender">
 		<param name="Threshold" value="INFO" />
 		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
-			<param name="FileNamePattern" value="logs/dionysusInfo.%d.zip" />
-			<param name="FileNamePattern" value="logs/dionysusInfo.%d.log" />
+			<param name="FileNamePattern" value="logs/dionysusInfo-%d.zip" />
+			<param name="FileNamePattern" value="logs/dionysusInfo-%d.log" />
 
 		</rollingPolicy>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p - %m%n" />
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} (%-5p) [%15.15t] - %m%n" />
 		</layout>
 	</appender>
 
 	<appender name="dionysusErrorFile" class="org.apache.log4j.rolling.RollingFileAppender">
 		<param name="Threshold" value="ERROR" />
 		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
-			<param name="FileNamePattern" value="logs/dionysusInfo.%d.zip" />
-			<param name="FileNamePattern" value="logs/dionysusInfo.%d.log" />
-
+			<param name="FileNamePattern" value="logs/dionysusError-%d.zip" />
+			<param name="FileNamePattern" value="logs/dionysusError-%d.log" />
 		</rollingPolicy>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p - %m%n" />
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} (%-5p) [%15.15t] - %m%n" />
 		</layout>
 	</appender>
 	<logger name="dionysus">
