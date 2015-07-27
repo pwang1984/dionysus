@@ -125,4 +125,24 @@ public class CustomerAddress {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomerAddress [addressId=" + addressId
+				+ ", customerId="
+				+ customerId
+				+ ", line1="
+				+ line1
+				+ ", line2="
+				+ line2
+				+ ", postalCode="
+				+ postalCode
+				+ ", province="
+				+ province
+				+ ", country="
+				+ country
+				+ ", buzzCode="
+				+ buzzCode
+				+ "]";
+	}
+
 }

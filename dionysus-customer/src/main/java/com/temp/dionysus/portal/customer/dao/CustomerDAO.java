@@ -8,4 +8,6 @@ public interface CustomerDAO {
 	Customer getCustomerByEmail(String email);
 
 	void updateCustomer(Customer customer);
+
+	boolean customerExists(Customer customer);
 }

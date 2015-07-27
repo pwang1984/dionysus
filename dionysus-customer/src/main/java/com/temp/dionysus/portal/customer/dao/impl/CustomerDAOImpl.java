@@ -35,4 +35,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 		sessionFactory.getCurrentSession().update(customer);
 	}
 
+	@Override
+	public boolean customerExists(Customer customer) {
+		return sessionFactory.getCurrentSession().get(Customer.class, customer.getCustomerId()) != null;
+	}
+
 }
