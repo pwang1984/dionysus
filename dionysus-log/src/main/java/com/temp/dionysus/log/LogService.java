@@ -9,9 +9,11 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Aspect
 public class LogService {
+	@Autowired
 	private Logger logger;
 
 	public LogService() {
@@ -31,8 +33,9 @@ public class LogService {
 
 	}
 
-	@Pointcut("(execution(public * *(..)) || @annotation(Loggable)) && !@annotation(org.junit.Test)&& !@annotation(NoLogging)")
-	public void logableFunctions() {
+	@Pointcut("(execution(public * *(..)) || @annotation(Loggable)) && !@annotation(org.junit.Test)&& !@annotation(NoLogging) && !execution( String *.toString()) && !execution(* *.domain.*.get*())")
+	public void
+	logableFunctions() {
 
 	}
 
@@ -48,12 +51,12 @@ public class LogService {
 
 	@Before("logableFunctions()")
 	public void logEnterFunction(final JoinPoint jp) {
-		logger.debug(jp.getTarget().getClass().getName() + "#" + jp.getSignature().getName() + " START: " + Arrays.toString(jp.getArgs()));
+		logger.debug(jp.getSignature() + " START: " + Arrays.toString(jp.getArgs()));
 	}
 
 	@AfterReturning(pointcut = "logableFunctions()", returning = "o")
 	public void logReturningFunction(final JoinPoint jp, Object o) {
-		logger.info(jp.getTarget().getClass().getName() + "#" + jp.getSignature().getName() + " DONE: " + Arrays.toString(jp.getArgs()) + " Returning: " + o);
+		logger.info(jp.getSignature() + " DONE: " + Arrays.toString(jp.getArgs()) + " Returning: " + o);
 	}
 
 }

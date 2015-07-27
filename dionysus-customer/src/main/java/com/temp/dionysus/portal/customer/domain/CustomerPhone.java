@@ -81,4 +81,9 @@ public class CustomerPhone {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomerPhone [phoneId=" + phoneId + ", customerId=" + customerId + ", countryCode=" + countryCode + ", phoneNumber=" + phoneNumber + "]";
+	}
+
 }

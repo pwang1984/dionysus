@@ -5,6 +5,7 @@ import java.sql.Connection;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -63,6 +64,11 @@ public class PortalConfig {
 	@Bean
 	public CustomerDAO customerDAO() {
 		return new CustomerDAOImpl();
+	}
+
+	@Bean
+	public Logger logger() {
+		return Logger.getLogger("dionysus");
 	}
 
 }

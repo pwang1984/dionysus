@@ -39,5 +39,15 @@
 			<artifactId>scala-library</artifactId>
 			<version>2.10.4</version>
 		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>dionysus-customer</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>dionysus-log</artifactId>
+			<version>${version}</version>
+		</dependency>
 	</dependencies>
 </project>

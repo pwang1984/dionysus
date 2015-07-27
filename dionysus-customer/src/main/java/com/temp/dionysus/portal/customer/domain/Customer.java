@@ -207,4 +207,32 @@ public class Customer {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId
+				+ ", nickName="
+				+ nickName
+				+ ", firstName="
+				+ firstName
+				+ ", lastName="
+				+ lastName
+				+ ", middleName="
+				+ middleName
+				+ ", password="
+				+ password
+				+ ", email="
+				+ email
+				+ ", verified="
+				+ verified
+				+ ", phoneList="
+				+ phoneList
+				+ ", addressList="
+				+ addressList
+				+ ", registerTime="
+				+ registerTime
+				+ ", lastLoginTime="
+				+ lastLoginTime
+				+ "]";
+	}
+
 }

@@ -10,7 +10,6 @@ import org.springframework.util.Base64Utils;
 import com.temp.dionysus.commons.encrypt.Encryption;
 
 public class AESEncryption implements Encryption {
-	private String key;
 	private Cipher cipher;
 	private SecretKeySpec skeySpec;
 
@@ -29,11 +28,11 @@ public class AESEncryption implements Encryption {
 		else if (key.length() >= 16) {
 			key = key.substring(0, 16);
 		}
-		this.key = key;
 		cipher = Cipher.getInstance(padding);
 		skeySpec = new SecretKeySpec(key.getBytes(), padding);
 	}
 
+	@Override
 	public String encrypt(String text) throws GeneralSecurityException {
 		cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
 
@@ -41,6 +40,7 @@ public class AESEncryption implements Encryption {
 		return Base64Utils.encodeToString(encrypted);
 	}
 
+	@Override
 	public String decrypt(String encryptedText) throws GeneralSecurityException {
 		byte[] base64Decoded = Base64Utils.decodeFromString(encryptedText);
 
