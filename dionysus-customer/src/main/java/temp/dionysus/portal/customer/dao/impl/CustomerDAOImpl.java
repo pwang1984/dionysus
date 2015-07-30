@@ -22,7 +22,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerByEmail(String email) {
-		return entityManager.createQuery("select * from Customers where email = '" + email + "'", Customer.class).getSingleResult();
+		return entityManager.createQuery("select * from Customers where email = :email", Customer.class).setParameter(":email", email).getSingleResult();
 	}
 
 	@Override
