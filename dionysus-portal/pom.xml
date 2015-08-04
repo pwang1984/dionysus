@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.temp.dionysus</groupId>
+		<groupId>temp.dionysus</groupId>
 		<artifactId>dionysus</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -48,6 +48,11 @@
 			<groupId>${groupId}</groupId>
 			<artifactId>dionysus-log</artifactId>
 			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>1.2.5.RELEASE</version>
 		</dependency>
 	</dependencies>
 </project>
