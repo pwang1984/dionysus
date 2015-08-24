@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.gmail.com" />
+	<property name="port" value="587" />
+	<property name="username" value="playt@volantesystems.com" />
+	<property name="password" value="v01ant#911" />
+		
+	<property name="javaMailProperties">
+	   <props>
+       	      <prop key="mail.smtp.auth">true</prop>
+       	      <prop key="mail.smtp.starttls.enable">true</prop>
+       	   </props>
+	</property>
+</bean>
+<!-- this is a template message that we can pre-load with default state -->
+<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+    <property name="from" value="customerservice@mycompany.com"/>
+    <property name="subject" value="Your order"/>
+</bean>
+	
+<bean id="simpleMailService" class="temp.dionysus.mailservice.impl.SimpleMailService">
+	<property name="mailSender" ref="mailSender" />
+	<property name="templateMessage" ref="templateMessage"/>
+</bean>
+</beans>

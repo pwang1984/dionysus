@@ -1,23 +1,28 @@
 package temp.dionysus.portal;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import temp.dionysus.portal.customer.dao.CustomerDAO;
 import temp.dionysus.portal.customer.dao.impl.CustomerDAOImpl;
 
 @Configuration
-public class DatabaseConfig {
+public class ContextConfig {
 	/**
 	 * Default timeout when connect in ms
 	 */
@@ -68,8 +73,8 @@ public class DatabaseConfig {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUsername("root");
-		dataSource.setPassword("7890uiop");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/dionysus");
+//		dataSource.setPassword("7890uiop");
+		dataSource.setUrl("jdbc:mysql://127.0.0.1:3307/dionysus");
 		dataSource.setMinIdle(1);
 		dataSource.setMaxIdle(8);
 		dataSource.setMaxOpenPreparedStatements(200);

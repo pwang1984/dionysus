@@ -1,5 +1,7 @@
 package temp.dionysus.portal.customer.dao;
 
+import java.util.List;
+
 import temp.dionysus.portal.customer.domain.Customer;
 
 public interface CustomerDAO {
@@ -10,4 +12,8 @@ public interface CustomerDAO {
 	void updateCustomer(Customer customer);
 
 	boolean customerExists(Customer customer);
+	
+	List<Customer> getAllCustomers();
+	
+	Customer getCustomerById(int customerId);
 }

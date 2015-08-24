@@ -10,7 +10,7 @@ public class PortalMainApp {
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-		ctx.register(DatabaseConfig.class);
+		ctx.register(ContextConfig.class);
 		//		ctx.register(WebViewConfig.class);
 		SpringApplication.run(PortalMainApp.class, args);
 	}
