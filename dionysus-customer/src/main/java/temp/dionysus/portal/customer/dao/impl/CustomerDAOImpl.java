@@ -2,16 +2,15 @@ package temp.dionysus.portal.customer.dao.impl;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Repository;
-
 import temp.dionysus.portal.customer.dao.CustomerDAO;
 import temp.dionysus.portal.customer.domain.Customer;
 
-@Repository
+@Named
 @Transactional
 public class CustomerDAOImpl implements CustomerDAO {
 	@PersistenceContext

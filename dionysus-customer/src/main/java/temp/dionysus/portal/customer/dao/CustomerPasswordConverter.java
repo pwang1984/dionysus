@@ -25,6 +25,7 @@ public class CustomerPasswordConverter implements AttributeConverter<String, Str
 		this.encryption = encryption;
 	}
 
+	@Override
 	public String convertToDatabaseColumn(String attribute) {
 		try {
 			return encryption.encrypt(attribute);
@@ -33,6 +34,7 @@ public class CustomerPasswordConverter implements AttributeConverter<String, Str
 		}
 	}
 
+	@Override
 	public String convertToEntityAttribute(String dbData) {
 		try {
 			return encryption.decrypt(dbData);
