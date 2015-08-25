@@ -22,7 +22,7 @@ import temp.dionysus.portal.customer.dao.CustomerPasswordConverter;
 
 @Entity
 @Table(name = "CUSTOMER", indexes = {
-		@Index(name = "index_customer_email", columnList = "email", unique = true)
+		@Index(name = "index_customer_email", columnList = "email")
 })
 @Named
 public class Customer {
@@ -47,7 +47,7 @@ public class Customer {
 	@Convert(converter = CustomerPasswordConverter.class)
 	private String password;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
 	@Column(name = "verified", nullable = false, columnDefinition = "bit NOT NULL DEFAULT 0")

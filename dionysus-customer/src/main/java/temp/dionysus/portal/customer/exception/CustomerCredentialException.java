@@ -1,6 +1,6 @@
 package temp.dionysus.portal.customer.exception;
 
-public class CustomerCredentialException extends Exception {
+public class CustomerCredentialException extends CustomerException {
 
 	/**
 	 *

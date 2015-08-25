@@ -16,6 +16,8 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import temp.dionysus.portal.customer.business.CustomerBO;
+import temp.dionysus.portal.customer.business.impl.CustomerBOImpl;
 import temp.dionysus.portal.customer.dao.CustomerDAO;
 import temp.dionysus.portal.customer.dao.impl.CustomerDAOImpl;
 
@@ -96,6 +98,11 @@ public class ContextConfig {
 	@Bean
 	public Logger logger() {
 		return Logger.getLogger("dionysus");
+	}
+
+	@Bean
+	public CustomerBO customerBO() {
+		return new CustomerBOImpl();
 	}
 
 }

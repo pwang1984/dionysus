@@ -23,17 +23,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerByEmail(String email) {
-		return entityManager.createQuery("select c from Customer c where email = :email", Customer.class).setParameter("email", email).getSingleResult();
+		List<Customer> result = entityManager.createQuery("select c from Customer c where email = :email", Customer.class)
+				.setParameter("email", email)
+				.getResultList();
+		return (result.isEmpty() ? null : result.get(0));
 	}
 
 	@Override
 	public void updateCustomer(Customer customer) {
 		entityManager.persist(customer);
-	}
-
-	@Override
-	public boolean customerExists(Customer customer) {
-		return entityManager.find(Customer.class, customer.getCustomerId()) != null;
 	}
 
 	@Override

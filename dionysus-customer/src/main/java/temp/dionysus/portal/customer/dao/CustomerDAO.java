@@ -11,9 +11,7 @@ public interface CustomerDAO {
 
 	void updateCustomer(Customer customer);
 
-	boolean customerExists(Customer customer);
-	
 	List<Customer> getAllCustomers();
-	
+
 	Customer getCustomerById(int customerId);
 }

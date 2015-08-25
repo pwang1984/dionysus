@@ -1,6 +1,6 @@
 package temp.dionysus.portal.customer.exception;
 
-public class CustomerNotFoundException extends Exception {
+public class CustomerNotFoundException extends CustomerException {
 
 	/**
 	 *
