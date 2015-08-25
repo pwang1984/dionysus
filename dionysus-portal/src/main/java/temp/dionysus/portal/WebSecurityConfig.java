@@ -1,6 +1,7 @@
 package temp.dionysus.portal;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,47 +17,48 @@ import temp.dionysus.security.RestAuthenticationEntryPoint;
 @Configuration
 @EnableWebSecurity
 @ComponentScan("temp.dionysus.security")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
- 
-    @Autowired
-    private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
- 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().
-          withUser("temporary").password("temporary").roles("ADMIN").and().
-          withUser("user").password("userPass").roles("USER");
-    }
- 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception { 
-        http
-        .csrf().disable()
-        .exceptionHandling()
-        .authenticationEntryPoint(restAuthenticationEntryPoint)
-        .and()
-        .authorizeRequests()
-        .antMatchers("/interal/**").authenticated()
-        .and()
-        .formLogin()
-        .loginProcessingUrl("/j_spring_security_check")
-        .usernameParameter("j_username")
-        .passwordParameter("j_password")
-        .successHandler(authenticationSuccessHandler)
-        .failureHandler(new SimpleUrlAuthenticationFailureHandler())
-        .and()
-        .logout();
-    }
- 
-    @Bean
-    public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler(){
-        return new MySavedRequestAwareAuthenticationSuccessHandler();
-    }
-    @Bean
-    public SimpleUrlAuthenticationFailureHandler myFailureHandler(){
-        return new SimpleUrlAuthenticationFailureHandler();
-    }
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Inject
+	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+	@Inject
+	private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().
+				withUser("temporary").password("temporary").roles("ADMIN").and().
+				withUser("user").password("userPass").roles("USER");
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.csrf().disable()
+				.exceptionHandling()
+				.authenticationEntryPoint(restAuthenticationEntryPoint)
+				.and()
+				.authorizeRequests()
+				.antMatchers("/interal/**").authenticated()
+				.and()
+				.formLogin()
+				.loginProcessingUrl("/j_spring_security_check")
+				.usernameParameter("j_username")
+				.passwordParameter("j_password")
+				.successHandler(authenticationSuccessHandler)
+				.failureHandler(new SimpleUrlAuthenticationFailureHandler())
+				.and()
+				.logout();
+	}
+
+	@Bean
+	public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler() {
+		return new MySavedRequestAwareAuthenticationSuccessHandler();
+	}
+
+	@Bean
+	public SimpleUrlAuthenticationFailureHandler myFailureHandler() {
+		return new SimpleUrlAuthenticationFailureHandler();
+	}
 }

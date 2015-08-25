@@ -1,8 +1,11 @@
 package temp.dionysus.portal.customer.rest;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +19,7 @@ import temp.dionysus.portal.customer.exception.CustomerCredentialException;
 
 @RestController
 public class CustomerService {
-	@Autowired
+	@Inject
 	CustomerDAO customerDAO;
 
 	@RequestMapping(value = "rest/customer/login", method = RequestMethod.POST)
@@ -25,6 +28,7 @@ public class CustomerService {
 		if (customer == null || !customer.getPassword().equals(password)) {
 			throw new CustomerCredentialException();
 		}
+		customer.setLastLoginTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		return customer;
 	}
 
@@ -32,13 +36,13 @@ public class CustomerService {
 	public void register(Customer customer) {
 		customerDAO.addCustomer(customer);
 	}
-	
+
 	@RequestMapping(value = "internal/customer/list", method = RequestMethod.GET)
 	public List<Customer> getAllCustomers() {
 		return customerDAO.getAllCustomers();
 	}
-	
-	@RequestMapping(value="internal/customer/get/{customerId}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "internal/customer/get/{customerId}", method = RequestMethod.GET)
 	@ResponseBody
 	public Customer getCustomerById(@PathVariable("customerId") int id) {
 		return customerDAO.getCustomerById(id);

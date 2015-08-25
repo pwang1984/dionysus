@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Set;
 
+import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -12,17 +13,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import temp.dionysus.portal.customer.dao.CustomerPasswordConverter;
 
 @Entity
-@Table(name = "Customer", indexes = {
+@Table(name = "CUSTOMER", indexes = {
 		@Index(name = "index_customer_email", columnList = "email", unique = true)
 })
+@Named
 public class Customer {
 	@Id
 	@GeneratedValue
@@ -51,13 +53,13 @@ public class Customer {
 	@Column(name = "verified", nullable = false, columnDefinition = "bit NOT NULL DEFAULT 0")
 	private boolean verified;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerId", referencedColumnName = "customerId")
-	private Set<CustomerPhone> phoneList;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "CUSTOMER_PHONE")
+	private Set<Phone> phones;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "customerId", referencedColumnName = "customerId")
-	private Set<CustomerAddress> addressList;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "CUSTOMER_ADDRESS")
+	private Set<Address> addresses;
 
 	@Column(name = "registerTime")
 	private Timestamp registerTime;
@@ -154,38 +156,21 @@ public class Customer {
 		this.verified = verified;
 	}
 
-	public Set<CustomerPhone> getPhoneList() {
-		return phoneList;
+	public Set<Phone> getPhones() {
+		return phones;
 	}
 
-	public void setPhoneList(Set<CustomerPhone> phoneList) {
-		this.phoneList = phoneList;
+	public void setPhones(Set<Phone> phones) {
+		this.phones = phones;
 	}
 
-	public Set<CustomerAddress> getAddressList() {
-		return addressList;
+	public Set<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddressList(Set<CustomerAddress> addressList) {
-		this.addressList = addressList;
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
 	}
-
-	//
-	//	public CustomerPhone getDefaultPhoneNum() {
-	//		return defaultPhoneNum;
-	//	}
-	//
-	//	public void setDefaultPhoneNum(CustomerPhone defaultPhoneNum) {
-	//		this.defaultPhoneNum = defaultPhoneNum;
-	//	}
-	//
-	//	public CustomerAddress getDefaultAddress() {
-	//		return defaultAddress;
-	//	}
-	//
-	//	public void setDefaultAddress(CustomerAddress defaultAddress) {
-	//		this.defaultAddress = defaultAddress;
-	//	}
 
 	@Override
 	public int hashCode() {
@@ -231,9 +216,9 @@ public class Customer {
 				+ ", verified="
 				+ verified
 				+ ", phoneList="
-				+ phoneList
+				+ phones
 				+ ", addressList="
-				+ addressList
+				+ addresses
 				+ ", registerTime="
 				+ registerTime
 				+ ", lastLoginTime="

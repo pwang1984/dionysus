@@ -2,6 +2,8 @@ package temp.dionysus.log;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -9,11 +11,10 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Aspect
 public class LogService {
-	@Autowired
+	@Inject
 	private Logger logger;
 
 	public LogService() {
@@ -28,25 +29,33 @@ public class LogService {
 		logger = Logger.getLogger(type);
 	}
 
-	@Pointcut("execution(* *(..)) && !@annotation(org.junit.Test)")
+	@Pointcut("execution(* *(..)) "
+			+ "&& !within(*..*Test) "
+			+ "&& !execution(* *..domain..*.get*(..))"
+			+ "&& !execution(* *..domain..*.set*(..))")
 	public void allFunctions() {
 
 	}
 
-	@Pointcut("(execution(public * *(..)) || @annotation(Loggable)) && !@annotation(org.junit.Test)&& !@annotation(NoLogging) && !execution( String *.toString()) && !execution(* *.domain.*.get*())")
-	public void
-	logableFunctions() {
+	@Pointcut("(execution(public * *(..)) || @annotation(Loggable)) "
+			+ "&& !within(*..*Test)"
+			+ "&& !@annotation(NoLogging) "
+			+ "&& !execution( String *.toString()) "
+			+ "&& !execution(* *..domain..*.get*(..))"
+			+ "&& !execution(* *..domain..*.set*(..))")
+	public void logableFunctions() {
 
 	}
 
-	@AfterThrowing(pointcut = "allFunctions() && cflowbelow(allFunctions()) && !within(LogService)", throwing = "throwable")
-	public void logRunTimeException(JoinPoint jp, Throwable throwable) {
+	@AfterThrowing(pointcut = "allFunctions() && cflowbelow(allFunctions())", throwing = "throwable")
+	public void logThrowable(JoinPoint jp, Throwable throwable) throws Throwable {
 		if (throwable instanceof Error) {
 			logger.fatal("Error Detected. " + jp.toString(), throwable);
 		} else {
 			logger.error("Exception Detected. " + jp.toString(), throwable);
 		}
 		throwable.printStackTrace();
+		throw throwable;
 	}
 
 	@Before("logableFunctions()")

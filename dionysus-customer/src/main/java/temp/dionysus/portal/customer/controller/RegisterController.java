@@ -2,7 +2,8 @@ package temp.dionysus.portal.customer.controller;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import temp.dionysus.portal.customer.domain.Customer;
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
-	@Autowired
+	@Inject
 	CustomerDAO customerDAO;
 
 	@RequestMapping(method = RequestMethod.GET)

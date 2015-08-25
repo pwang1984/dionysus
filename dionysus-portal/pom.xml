@@ -8,11 +8,7 @@
 	</parent>
 	<artifactId>dionysus-portal</artifactId>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<version>1.2.5.RELEASE</version>
-		</dependency>
+
 		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>dionysus-customer</artifactId>
@@ -20,18 +16,23 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>1.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.36</version>
 		</dependency>
 
 		<dependency>
@@ -50,11 +51,6 @@
 			<version>${version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>1.2.5.RELEASE</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
@@ -62,10 +58,8 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 		</dependency>
-		<!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>

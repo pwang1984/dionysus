@@ -1,5 +1,6 @@
 package temp.dionysus.portal.customer.domain;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,15 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CUSTOMER_ADDRESS")
-public class CustomerAddress {
+@Table(name = "ADDRESS")
+@Named
+public class Address {
 	@Id
 	@Column(name = "addressId", nullable = false)
 	@GeneratedValue
 	private int addressId;
-
-	@Column(name = "customerId", nullable = false)
-	private int customerId;
 
 	@Column(name = "line1")
 	private String line1;
@@ -41,14 +40,6 @@ public class CustomerAddress {
 
 	public void setAddressId(int addressId) {
 		this.addressId = addressId;
-	}
-
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
 	}
 
 	public String getLine1() {
@@ -118,7 +109,7 @@ public class CustomerAddress {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		CustomerAddress other = (CustomerAddress) obj;
+		Address other = (Address) obj;
 		if (addressId != other.addressId) {
 			return false;
 		}
@@ -128,8 +119,6 @@ public class CustomerAddress {
 	@Override
 	public String toString() {
 		return "CustomerAddress [addressId=" + addressId
-				+ ", customerId="
-				+ customerId
 				+ ", line1="
 				+ line1
 				+ ", line2="

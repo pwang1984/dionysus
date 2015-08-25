@@ -45,7 +45,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerById(int customerId) {
-		return entityManager.createQuery("select c from Customer c where customerId = :customerId", Customer.class).setParameter("customerId", customerId).getSingleResult();
+		return entityManager.find(Customer.class, customerId);
+		//		return entityManager.createQuery("select c from Customer c where customerId = :customerId", Customer.class).setParameter("customerId", customerId).getSingleResult();
 	}
 
 }
