@@ -16,12 +16,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.1.7.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.10.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>${groupId}</groupId>
@@ -32,6 +26,11 @@
 			<groupId>${groupId}</groupId>
 			<artifactId>dionysus-email</artifactId>
 			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
+			<version>2.1.5</version>
 		</dependency>
 	</dependencies>
 </project>

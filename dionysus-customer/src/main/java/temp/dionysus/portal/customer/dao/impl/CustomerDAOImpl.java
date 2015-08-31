@@ -2,16 +2,15 @@ package temp.dionysus.portal.customer.dao.impl;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Repository;
-
 import temp.dionysus.portal.customer.dao.CustomerDAO;
 import temp.dionysus.portal.customer.domain.Customer;
 
-@Repository
+@Named
 @Transactional
 public class CustomerDAOImpl implements CustomerDAO {
 	@PersistenceContext
@@ -24,17 +23,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerByEmail(String email) {
-		return entityManager.createQuery("select c from Customer c where email = :email", Customer.class).setParameter("email", email).getSingleResult();
+		List<Customer> result = entityManager.createQuery("select c from Customer c where email = :email", Customer.class)
+				.setParameter("email", email)
+				.getResultList();
+		return (result.isEmpty() ? null : result.get(0));
 	}
 
 	@Override
 	public void updateCustomer(Customer customer) {
 		entityManager.persist(customer);
-	}
-
-	@Override
-	public boolean customerExists(Customer customer) {
-		return entityManager.find(Customer.class, customer.getCustomerId()) != null;
 	}
 
 	@Override
@@ -45,7 +42,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerById(int customerId) {
-		return entityManager.createQuery("select c from Customer c where customerId = :customerId", Customer.class).setParameter("customerId", customerId).getSingleResult();
+		return entityManager.find(Customer.class, customerId);
+		//		return entityManager.createQuery("select c from Customer c where customerId = :customerId", Customer.class).setParameter("customerId", customerId).getSingleResult();
 	}
 
 }

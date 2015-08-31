@@ -1,5 +1,6 @@
 package temp.dionysus.portal.customer.domain;
 
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,15 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CUSTOMER_PHONE")
-public class CustomerPhone {
+@Table(name = "PHONE")
+@Named
+public class Phone {
 	@Id
 	@GeneratedValue
 	@Column(name = "phoneId", nullable = false)
 	private int phoneId;
-
-	@Column(name = "customerId", nullable = false)
-	private int customerId;
 
 	@Column(name = "countryCode", nullable = false, columnDefinition = "integer NOT NULL DEFAULT 1")
 	private int countryCode;
@@ -29,14 +28,6 @@ public class CustomerPhone {
 
 	public void setPhoneId(int phoneId) {
 		this.phoneId = phoneId;
-	}
-
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
 	}
 
 	public int getCountryCode() {
@@ -59,7 +50,9 @@ public class CustomerPhone {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + customerId;
+		result = prime * result + countryCode;
+		result = prime * result + phoneId;
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		return result;
 	}
 
@@ -74,8 +67,18 @@ public class CustomerPhone {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		CustomerPhone other = (CustomerPhone) obj;
-		if (customerId != other.customerId) {
+		Phone other = (Phone) obj;
+		if (countryCode != other.countryCode) {
+			return false;
+		}
+		if (phoneId != other.phoneId) {
+			return false;
+		}
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null) {
+				return false;
+			}
+		} else if (!phoneNumber.equals(other.phoneNumber)) {
 			return false;
 		}
 		return true;
@@ -83,7 +86,7 @@ public class CustomerPhone {
 
 	@Override
 	public String toString() {
-		return "CustomerPhone [phoneId=" + phoneId + ", customerId=" + customerId + ", countryCode=" + countryCode + ", phoneNumber=" + phoneNumber + "]";
+		return "Phone [phoneId=" + phoneId + ", countryCode=" + countryCode + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 }
