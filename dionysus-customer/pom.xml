@@ -28,5 +28,10 @@
 			<artifactId>dionysus-log</artifactId>
 			<version>${version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>dionysus-email</artifactId>
+			<version>${version}</version>
+		</dependency>
 	</dependencies>
 </project>

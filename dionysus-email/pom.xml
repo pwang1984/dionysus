@@ -14,11 +14,6 @@
   		<artifactId>dionysus-log</artifactId>
   		<version>${version}</version>
   	</dependency>
-  	<dependency>
-  		<groupId>${groupId}</groupId>
-  		<artifactId>dionysus-customer</artifactId>
-  		<version>${version}</version>
-  	</dependency>
   	<!-- Java Mail API -->
     <dependency>
 	    <groupId>javax.mail</groupId>

@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .authenticationEntryPoint(restAuthenticationEntryPoint)
         .and()
         .authorizeRequests()
-        .antMatchers("/interal/**").authenticated()
+        .antMatchers("/internal/**").hasRole( "ADMIN" )
         .and()
         .formLogin()
         .loginProcessingUrl("/j_spring_security_check")
@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .successHandler(authenticationSuccessHandler)
         .failureHandler(new SimpleUrlAuthenticationFailureHandler())
         .and()
-        .logout();
+        .logout(); 
     }
  
     @Bean

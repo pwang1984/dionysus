@@ -1,27 +1,26 @@
 package temp.dionysus.portal;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.web.filter.DelegatingFilterProxy;
-
+import temp.dionysus.mailservice.MailService;
+import temp.dionysus.mailservice.impl.SimpleMailService;
 import temp.dionysus.portal.customer.dao.CustomerDAO;
 import temp.dionysus.portal.customer.dao.impl.CustomerDAOImpl;
 
 @Configuration
+@ImportResource("classpath:email_bean.xml")
 public class ContextConfig {
 	/**
 	 * Default timeout when connect in ms
@@ -32,6 +31,10 @@ public class ContextConfig {
 	 * Default timeout for abandoned connection (not properly closed connection) in seconds
 	 */
 	private static final int DEFAULT_REMOVE_ABANDONED_TIME_OUT = 600;
+	
+	@Autowired
+	private SimpleMailService simpleMailService;
+	
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -98,6 +101,11 @@ public class ContextConfig {
 	@Bean
 	public Logger logger() {
 		return Logger.getLogger("dionysus");
+	}
+	
+	@Bean
+	public MailService mailService() {
+		return this.simpleMailService;
 	}
 
 }
