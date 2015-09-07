@@ -35,4 +35,10 @@ public class SimpleMailService implements MailService {
         }
 	}
 
+	@Override
+	public void sendRegConfirmMail(String from, String to, Object customer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

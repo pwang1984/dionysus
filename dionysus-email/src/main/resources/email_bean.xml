@@ -22,8 +22,23 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     <property name="subject" value="Your order"/>
 </bean>
 	
-<bean id="simpleMailService" class="temp.dionysus.mailservice.impl.SimpleMailService">
+<!-- <bean id="simpleMailService" class="temp.dionysus.mailservice.impl.SimpleMailService">
 	<property name="mailSender" ref="mailSender" />
 	<property name="templateMessage" ref="templateMessage"/>
+</bean>  -->
+
+<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+	<property name="velocityProperties">
+		<value>
+			resource.loader=class
+	  		class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+	 	</value>
+ 	</property>
 </bean>
+
+<bean id="mimeMailService" class="temp.dionysus.mailservice.impl.MimeMailService">
+	<property name="mailSender" ref="mailSender" />
+	<property name="velocityEngine" ref="velocityEngine"/>
+</bean>
+
 </beans>

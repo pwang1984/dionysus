@@ -36,10 +36,9 @@ public class CustomerService {
 	public boolean register(Customer customer) throws CustomerAlreadyExistsException {
 		boolean result = customerBO.register(customer);
 		// send confirmation email
-		mailService.sendMail("no_reply@volantesystems.com",
+		mailService.sendRegConfirmMail("no_reply@volantesystems.com",
 	       		   customer.getEmail(),
-	       		   "Thank you for registration", 
-	       		   "Thank you for registering with dionysusu");
+	       		   customer);
 		return result;
 	}
 

@@ -19,6 +19,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import temp.dionysus.mailservice.MailService;
+import temp.dionysus.mailservice.impl.MimeMailService;
 import temp.dionysus.mailservice.impl.SimpleMailService;
 import temp.dionysus.portal.customer.business.CustomerBO;
 import temp.dionysus.portal.customer.business.impl.CustomerBOImpl;
@@ -39,7 +40,7 @@ public class ContextConfig {
 	private static final int DEFAULT_REMOVE_ABANDONED_TIME_OUT = 600;
 	
 	@Autowired
-	private SimpleMailService simpleMailService;
+	private MimeMailService mimeMailService;
 	
 
 	@Bean
@@ -54,18 +55,18 @@ public class ContextConfig {
 		return entityManagerFactory;
 	}
 
-	@Inject
-	@Bean
-	public SessionFactory sessionFactory(DataSource dataSource) {
-		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-		sessionBuilder.scanPackages("temp.dionysus.portal.customer.domain");
-		sessionBuilder.setProperty("hibernate.show_sql", "true");
-		sessionBuilder.setProperty("hibernate.format_sql", "true");
-		sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "update");
-		//		sessionBuilder.addAnnotatedClasses(User.class);
-
-		return sessionBuilder.buildSessionFactory();
-	}
+//	@Inject
+//	@Bean
+//	public SessionFactory sessionFactory(DataSource dataSource) {
+//		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
+//		sessionBuilder.scanPackages("temp.dionysus.portal.customer.domain");
+//		sessionBuilder.setProperty("hibernate.show_sql", "true");
+//		sessionBuilder.setProperty("hibernate.format_sql", "true");
+//		sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "update");
+//		//		sessionBuilder.addAnnotatedClasses(User.class);
+//
+//		return sessionBuilder.buildSessionFactory();
+//	}
 
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
@@ -82,8 +83,8 @@ public class ContextConfig {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUsername("root");
-		dataSource.setPassword("7890uiop");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/dionysus");
+//		dataSource.setPassword("7890uiop");
+		dataSource.setUrl("jdbc:mysql://127.0.0.1:3307/dionysus");
 		dataSource.setMinIdle(1);
 		dataSource.setMaxIdle(8);
 		dataSource.setMaxOpenPreparedStatements(200);
@@ -111,7 +112,7 @@ public class ContextConfig {
 	
 	@Bean
 	public MailService mailService() {
-		return this.simpleMailService;
+		return this.mimeMailService;
 	}
 
 	@Bean
