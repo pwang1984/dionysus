@@ -17,6 +17,7 @@ import temp.dionysus.portal.customer.business.CustomerBO;
 import temp.dionysus.portal.customer.domain.Customer;
 import temp.dionysus.portal.customer.exception.CustomerAlreadyExistsException;
 import temp.dionysus.portal.customer.exception.CustomerCredentialException;
+import temp.dionysus.portal.customer.exception.CustomerNotFoundException;
 import temp.dionysus.mailservice.*;
 
 @RestController
@@ -51,5 +52,17 @@ public class CustomerService {
 	@ResponseBody
 	public Customer getCustomerById(@PathVariable("customerId") int id) {
 		return customerBO.get(id);
+	}
+	
+	@RequestMapping(value = "internal/customer/find/{customerEmail:.+}", method = RequestMethod.GET)
+	@ResponseBody
+	public Customer getCustomerByEmail(@PathVariable("customerEmail") String email) {
+		return customerBO.findCustomerByEmail(email);
+	}
+	
+	@RequestMapping(value = "internal/customer/update", method = RequestMethod.POST)
+	@ResponseBody
+	public void updateCustomerById(Customer customer) throws CustomerNotFoundException{
+		customerBO.updateCustomer(customer);
 	}
 }

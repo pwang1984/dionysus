@@ -27,7 +27,18 @@ public class CustomerBOImpl implements CustomerBO {
 
 	@Override
 	public void updateCustomer(Customer customer) {
-		customerDAO.updateCustomer(customer);
+		int customerId = customer.getCustomerId();
+		String email = customer.getEmail();
+		if (customerDAO.getCustomerById(customerId)!=null) {
+			Customer existingCustomer = customerDAO.getCustomerById(customerId);
+			existingCustomer.setNickName(customer.getNickName());
+			customerDAO.updateCustomer(existingCustomer);
+		}
+		else if (customerDAO.getCustomerByEmail(email) != null) {
+			Customer existingCustomer = customerDAO.getCustomerByEmail(email);
+			existingCustomer.setNickName(customer.getNickName());
+			customerDAO.updateCustomer(existingCustomer);
+		}
 	}
 
 	@Override

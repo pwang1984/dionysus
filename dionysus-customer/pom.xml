@@ -23,11 +23,6 @@
 			<version>${version}</version>
 		</dependency>
 		<dependency>
-			<groupId>${groupId}</groupId>
-			<artifactId>dionysus-email</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
 			<version>2.1.5</version>
